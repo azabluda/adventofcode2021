@@ -1,22 +1,24 @@
-﻿using static System.Math;
+﻿Console.WriteLine("part 1: " + HydrothermalVenture(false));
+Console.WriteLine("part 2: " + HydrothermalVenture(true));
 
-var B = new int[1000, 1000];
-var parsed = from line in Input.My.Split("\r\n")
-             let a = line.Split(new[] { ",", " -> " }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray()
-             select (Min(a[0], a[2]), Max(a[0], a[2]), Min(a[1], a[3]), Max(a[1], a[3]), a);
+static int HydrothermalVenture(bool considerDiagonal) => Input.My.Split("\r\n")
+    .Select(str => str.Split(new[] { ",", " -> " }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray())
+    .SelectMany(arr => GetValidPointsBetween(considerDiagonal, (arr[0], arr[1]), (arr[2], arr[3])))
+    .GroupBy(ptn => ptn)
+    .Count(grp => grp.Count() > 1);
 
-foreach (var (x0, x1, y0, y1, _) in parsed)
-    if (x0 == x1)
-        for (int y = y0; y <= y1; ++y) ++B[x0, y];
-    else if (y0 == y1)
-        for (int x = x0; x <= x1; ++x) ++B[x, y0];
-Console.WriteLine("part1: " + B.Cast<int>().Count(c => c > 1));
-
-foreach (var (x0, x1, y0, y1, a) in parsed)
-    if (x1 - x0 == y1 - y0)
-        for (int i = 0; i <= x1 - x0; ++i)
-            ++B[a[0] + i * Sign(a[2] - a[0]), a[1] + i * Sign(a[3] - a[1])];
-Console.WriteLine("part2: " + B.Cast<int>().Count(c => c > 1));
+static IEnumerable<(int, int)> GetValidPointsBetween(bool considerDiagonal, params (int, int)[] points)
+{
+    var (x1, y1) = points.Min();
+    var (x2, y2) = points.Max();
+    if (x1 == x2)
+        return Enumerable.Range(0, 1 + y2 - y1).Select(i => (x2, y1 + i));
+    if (y1 == y2)
+        return Enumerable.Range(0, 1 + x2 - x1).Select(i => (x1 + i, y2));
+    if (considerDiagonal && x2 - x1 == Math.Abs(y2 - y1))
+        return Enumerable.Range(0, 1 + x2 - x1).Select(i => (x1 + i, y1 + i * Math.Sign(y2 - y1)));
+    return Enumerable.Empty<(int, int)>();
+}
 
 static class Input
 {
@@ -534,40 +536,3 @@ static class Input
 37,41 -> 255,41
 368,823 -> 302,823";
 }
-
-/*
-using static System.Math;
-
-var B = new int[1000, 1000];
-var lines = Input.My.Split("\r\n")
-    .Select(line => line.Split(new[] { ",", " -> " }, StringSplitOptions.RemoveEmptyEntries))
-    .Select(arr => new Line(arr.Select(int.Parse).ToArray()));
-
-foreach (var line in lines)
-    if (line.IsHorizontal)
-        for (int y = line.Y0; y <= line.Y1; ++y)
-            ++B[line.X0, y];
-    else if (line.IsVertical)
-        for (int x = line.X0; x <= line.X1; ++x)
-            ++B[x, line.Y0];
-Console.WriteLine("part1: " + B.Cast<int>().Count(c => c > 1));
-
-foreach (var line in lines)
-    if (line.IsDiagonal)
-        for (int i = 0; i <= line.X1 - line.X0; ++i)
-            ++B[line.DiagX(i), line.DiagY(i)];
-Console.WriteLine("part2: " + B.Cast<int>().Count(c => c > 1));
-
-record Line(int[] A)
-{
-    public int X0 => Min(A[0], A[2]);
-    public int X1 => Max(A[0], A[2]);
-    public int Y0 => Min(A[1], A[3]);
-    public int Y1 => Max(A[1], A[3]);
-    public bool IsHorizontal => X1 == X0;
-    public bool IsVertical => Y1 == Y0;
-    public bool IsDiagonal => X1 - X0 == Y1 - Y0;
-    public int DiagX(int i) => A[0] + i * Sign(A[2] - A[0]);
-    public int DiagY(int i) => A[1] + i * Sign(A[3] - A[1]);
-};
-*/

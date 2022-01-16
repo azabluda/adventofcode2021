@@ -2,23 +2,33 @@
 Console.WriteLine("part 2: " + HydrothermalVenture(true));
 
 static int HydrothermalVenture(bool considerDiagonal) => Input.My.Split("\r\n")
-    .Select(str => str.Split(new[] { ",", " -> " }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray())
-    .SelectMany(arr => GetValidPointsBetween(considerDiagonal, (arr[0], arr[1]), (arr[2], arr[3])))
-    .GroupBy(ptn => ptn)
-    .Count(grp => grp.Count() > 1);
+      .Select(str => str.Split(new[] { ",", " -> " }, StringSplitOptions.None).Select(int.Parse).ToArray())
+      .SelectMany(arr => GetValidPointsBetween((arr[0], arr[1]), (arr[2], arr[3]), considerDiagonal))
+      .GroupBy(ptn => ptn)
+      .Count(grp => grp.Count() > 1);
 
-static IEnumerable<(int, int)> GetValidPointsBetween(bool considerDiagonal, params (int, int)[] points)
+static IEnumerable<(int, int)> GetValidPointsBetween((int, int) p1, (int, int) p2, bool considerDiagonal)
 {
+    var points = new[] { p1, p2 };
     var (x1, y1) = points.Min();
     var (x2, y2) = points.Max();
     if (x1 == x2)
         return Enumerable.Range(0, 1 + y2 - y1).Select(i => (x2, y1 + i));
     if (y1 == y2)
         return Enumerable.Range(0, 1 + x2 - x1).Select(i => (x1 + i, y2));
-    if (considerDiagonal && x2 - x1 == Math.Abs(y2 - y1))
-        return Enumerable.Range(0, 1 + x2 - x1).Select(i => (x1 + i, y1 + i * Math.Sign(y2 - y1)));
+    if (considerDiagonal)
+    {
+        var diagType =
+              x2 - x1 == y2 - y1 ? DiagType.Ascending
+            : x2 - x1 == y1 - y2 ? DiagType.Descending
+            : DiagType.None;
+        if (diagType != DiagType.None)
+            return Enumerable.Range(0, 1 + x2 - x1).Select(i => (x1 + i, y1 + i * (int)diagType));
+    }
     return Enumerable.Empty<(int, int)>();
 }
+
+enum DiagType { Descending = -1, None = 0, Ascending = 1 };
 
 static class Input
 {

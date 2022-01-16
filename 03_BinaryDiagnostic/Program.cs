@@ -1,18 +1,39 @@
 ﻿using MoreLinq;
 using System.Numerics;
 
-string input = Input.My;
-int gamma = 0;
-var cols = input.Split("\r\n").Select(line => line.Select(c => c - '0')).Transpose().Select(col => col.ToList()).ToList();
-foreach (var col in cols)
+int gam = GetRating(-1), eps = gam ^ ((1 << (BitOperations.Log2((uint)gam) + 1)) - 1);
+Console.WriteLine($"Part 1: {gam} * {eps} = {gam * eps}");
+
+int o2 = GetRating(1), co2 = GetRating(0);
+Console.WriteLine($"Part 2: {o2} * {co2} = {o2 * co2}");
+
+int GetRating(int bit)
 {
-    int zeros = col.Count(x => x == 0), ones = col.Count(x => x == 1);
-    gamma = 2 * gamma + (ones > zeros ? 1 : 0);
+    int res = 0;
+    var cols = Input.My.Split("\r\n").Select(line => line.Select(c => c - '0')).Transpose().Select(col => col.ToList()).ToList();
+    foreach (var col in cols)
+    {
+        int zeros = col.Count(x => x == 0), ones = col.Count(x => x == 1);
+
+        // part 1
+        if (bit < 0)
+        {
+            res = 2 * res + (ones > zeros ? 1 : 0);
+            continue;
+        }
+
+        // part 2
+        int keepBit = zeros > ones ? 1 - bit : bit;
+        for (int i = col.Count - 1; i >= 0; --i)
+            if (col[i] != keepBit)
+                cols.ForEach(cc => cc.RemoveAt(i));
+        if (col.Count > 1) continue;
+        foreach (var cc in cols)
+            res = 2 * res + cc[0];
+        break;
+    }
+    return res;
 }
-
-int epsilon = gamma ^ ((1 << (BitOperations.Log2((uint)gamma) + 1)) - 1);
-Console.WriteLine($"Part 1: {gamma} * {epsilon} = {gamma * epsilon}");
-
 
 
 static class Input

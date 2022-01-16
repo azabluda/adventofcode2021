@@ -1,15 +1,11 @@
-﻿var cnt = new long[9];
-foreach (int i in Input.My.Split(',').Select(int.Parse))
-    ++cnt[i];
+﻿var cnt = Input.My.Split(',').Select(int.Parse).GroupBy(i => i).ToDictionary(g => g.Key, g => g.LongCount());
 
 for (int i = 1; i <= 256; ++i)
 {
-    var next = new long[9];
-    for (int j = 0; j < 9; ++j)
-        foreach (int k in j > 0 ? new[] { j - 1 } : new[] { 6, 8 })
-            next[k] += cnt[j];
-    cnt = next;
-    Console.WriteLine($"After {i} days: {cnt.Sum()}");
+    cnt = (from kv in cnt
+           from next in kv.Key > 0 ? new[] { kv.Key - 1 } : new[] { 6, 8 }
+           group kv.Value by next).ToDictionary(g => g.Key, g => g.Sum());
+    Console.WriteLine($"After {i} days: {cnt.Values.Sum()}");
 }
 
 static class Input

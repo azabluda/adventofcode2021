@@ -1,28 +1,26 @@
 ﻿using MoreLinq;
-using System.Numerics;
 
-int gam = GetRating(-1), eps = gam ^ ((1 << (BitOperations.Log2((uint)gam) + 1)) - 1);
+// part 1
+int gam = 0, eps = 0;
+foreach (var col in Input.Parsed)
+{
+    int zeros = col.Count(x => x == 0), ones = col.Count(x => x == 1);
+    int bit = ones > zeros ? 1 : 0;
+    gam = 2 * gam + bit;
+    eps = 2 * eps + 1 - bit;
+}
 Console.WriteLine($"Part 1: {gam} * {eps} = {gam * eps}");
 
+// part 2
 int o2 = GetRating(1), co2 = GetRating(0);
 Console.WriteLine($"Part 2: {o2} * {co2} = {o2 * co2}");
-
 int GetRating(int bit)
 {
     int res = 0;
-    var cols = Input.My.Split("\r\n").Select(line => line.Select(c => c - '0')).Transpose().Select(col => col.ToList()).ToList();
+    var cols = Input.Parsed;
     foreach (var col in cols)
     {
         int zeros = col.Count(x => x == 0), ones = col.Count(x => x == 1);
-
-        // part 1
-        if (bit < 0)
-        {
-            res = 2 * res + (ones > zeros ? 1 : 0);
-            continue;
-        }
-
-        // part 2
         int keepBit = zeros > ones ? 1 - bit : bit;
         for (int i = col.Count - 1; i >= 0; --i)
             if (col[i] != keepBit)
@@ -35,9 +33,11 @@ int GetRating(int bit)
     return res;
 }
 
-
 static class Input
 {
+    public static List<List<int>> Parsed =>
+        My.Split("\r\n").Select(line => line.Select(c => c - '0')).Transpose().Select(col => col.ToList()).ToList();
+
     public static string Test = @"00100
 11110
 10110

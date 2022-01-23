@@ -18,7 +18,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "02_Dive", "02_Dive\02_Dive.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "06_Lanternfish", "06_Lanternfish\06_Lanternfish.csproj", "{29409253-F16B-4FC6-9F75-71E128AC4CFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "03_BinaryDiagnostic", "03_BinaryDiagnostic\03_BinaryDiagnostic.csproj", "{24A625F0-9149-4D2F-957C-04403BBC914F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "03_BinaryDiagnostic", "03_BinaryDiagnostic\03_BinaryDiagnostic.csproj", "{24A625F0-9149-4D2F-957C-04403BBC914F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "07_TheTreacheryOfWhales", "07_TheTreacheryOfWhales\07_TheTreacheryOfWhales.csproj", "{C06A395E-B8A2-4F2E-A59E-37409A0752E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +52,10 @@ Global
 		{24A625F0-9149-4D2F-957C-04403BBC914F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24A625F0-9149-4D2F-957C-04403BBC914F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24A625F0-9149-4D2F-957C-04403BBC914F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C06A395E-B8A2-4F2E-A59E-37409A0752E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C06A395E-B8A2-4F2E-A59E-37409A0752E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C06A395E-B8A2-4F2E-A59E-37409A0752E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C06A395E-B8A2-4F2E-A59E-37409A0752E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

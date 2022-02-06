@@ -1,7 +1,9 @@
 ﻿var input = input1().Split("\n").Select(int.Parse);
-input = input.Zip(input.Skip(1), input.Skip(2)).Select(x => x.First + x.Second + x.Third);
-var ans = input.Zip(input.Skip(1), (a, b) => a < b).Count(x => x);
-Console.WriteLine(ans);
+Console.WriteLine($"Part 1: {Sweep(input)}");
+Console.WriteLine($"Part 2: {Sweep(input.Zip(input.Skip(1), input.Skip(2)).Select(x => x.First + x.Second + x.Third))}");
+
+static int Sweep(IEnumerable<int> measurements) =>
+    measurements.Zip(measurements.Skip(1), (a, b) => a < b).Count(x => x);
 
 static string input0() =>
 @"199

@@ -4,8 +4,7 @@
 int gam = 0, eps = 0;
 foreach (var col in Input.Parsed)
 {
-    int zeros = col.Count(x => x == 0), ones = col.Count(x => x == 1);
-    int bit = ones > zeros ? 1 : 0;
+    int bit = col.Sum(x => 2 * x - 1) < 0 ? 0 : 1;
     gam = 2 * gam + bit;
     eps = 2 * eps + 1 - bit;
 }
@@ -20,8 +19,7 @@ int GetRating(int bit)
     var cols = Input.Parsed;
     foreach (var col in cols)
     {
-        int zeros = col.Count(x => x == 0), ones = col.Count(x => x == 1);
-        int keepBit = zeros > ones ? 1 - bit : bit;
+        int keepBit = col.Sum(x => 2 * x - 1) < 0 ? 1 - bit : bit;
         for (int i = col.Count - 1; i >= 0; --i)
             if (col[i] != keepBit)
                 cols.ForEach(cc => cc.RemoveAt(i));

@@ -1,36 +1,28 @@
 #include <iostream>
-#include <unordered_map>
-#include <unordered_set>
+#include <map>
+#include <set>
 #include <sstream>
 using namespace std;
 
 string input();
 
-static size_t common_chars(string const& s) {
-    return s.size() - unordered_set(begin(s), end(s)).size();
-}
-
 int main() {
     size_t res1 = 0, res2 = 0;
-    unordered_map<size_t, size_t> ez{ {2, 1}, {4, 4}, {3, 7}, {7, 8} };
+    auto unique = [](auto s) { return set(begin(s), end(s)).size(); };
+    map<size_t, size_t> map{{2,1}, {4,4}, {3,7}, {7,8}, {556,3}, {567,2}, {566,5}, {677,6}, {666,9}};
     string str, str1, str4;
     for (stringstream file(input()); getline(file, str);) {
         size_t out = 0, idx = 0;
         for (stringstream line(str); getline(line, str, ' ');) {
-            size_t cnt = str.size(), val = ez[cnt];
+            size_t cnt = str.size(), val = map[cnt];
             if (idx++ <= 10) {
                 if (val == 1) str1 = str;
                 if (val == 4) str4 = str;
                 continue;
             }
             res1 += !!val;
-            size_t cnt1 = common_chars(str + str1),
-                   cnt4 = common_chars(str + str4);
-            val = cnt == 6 && cnt1 == 1 ? 6
-                : cnt == 6 && cnt4 == 4 ? 9
-                : cnt == 5 && cnt1 == 2 ? 3
-                : cnt == 5 && cnt4 == 2 ? 2
-                : cnt == 5 ? 5 : val;
+            if (!val)
+                val = map[100*cnt + 10*unique(str + str1) + unique(str + str4)];
             out = 10 * out + val;
         }
         res2 += out;

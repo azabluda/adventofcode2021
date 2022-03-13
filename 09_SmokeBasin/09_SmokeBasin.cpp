@@ -1,30 +1,63 @@
 #include <iostream>
-#include <vector>
+#include <numeric>
+#include <queue>
 #include <sstream>
+#include <unordered_set>
 using namespace std;
 
 string input();
 
-int main()
-{
+int main() {
+    // surround area with '9's
     string line;
-    vector<string> A(1, "");
+    vector<string> area(1, "");
     for (stringstream file(input()); getline(file, line);)
-        if (line.size())
-            A.push_back('9' + line + '9');
-    A[0] = string(A[1].size(), '9');
-    A.push_back(A[0]);
-    size_t res1 = 0;
-    for (size_t i = A.size()-2; i; --i)
-        for (size_t j = A[i].size()-2; j; --j)
-            if (A[i][j] < A[i+1][j] && A[i][j] < A[i][j+1] && A[i][j] < A[i-1][j] && A[i][j] < A[i][j-1])
-                res1 += A[i][j] - 47;
+        area.push_back('9' + line + '9');
+    area[0] = string(area[1].size(), '9');
+    area.push_back(area[0]);
+
+    // scan area for low points
+    int res1 = 0, res2 = 1;
+    static const vector<int> dir{ 1, 0, -1, 0, 1 };
+    priority_queue<int> top3;
+    for (size_t i = area.size() - 2; i; --i)
+        for (size_t j = area[i].size() - 2; j; --j) {
+
+            // check if (i,j) is low point
+            bool low = true;
+            for (size_t d = 0; low && d < 4; ++d)
+                low &= area[i][j] < area[i + dir[d]][j + dir[d+1]];
+            if (!low) continue; // not a local min
+
+            // run BFS from low point
+            unordered_set<size_t> basin;
+            queue<pair<size_t, size_t>> q;
+            q.push({i, j});
+            while (q.size()) {
+                auto [r, c] = q.front();
+                q.pop();
+                if (area[r][c] == '9') continue;
+                if (!basin.insert(100*r + c).second) continue;
+                for (size_t d = 0; d < 4; ++d)
+                    if (area[r + dir[d]][c + dir[d+1]] > area[r][c])
+                        q.push({r + dir[d], c + dir[d+1]});
+            }
+
+            // maintain 3 largest basins
+            top3.push(-(int)basin.size());
+            if (top3.size() > 3) top3.pop();
+            res1 += area[i][j] - '0' + 1;
+        }
+
+    // product of 3 largest basins
+    for (; top3.size(); top3.pop())
+        res2 *= -top3.top();
     cout << "Part 1: " << res1 << endl;
+    cout << "Part 2: " << res2 << endl;
 }
 
 string input1() {
-    return R"(
-2199943210
+    return R"(2199943210
 3987894921
 9856789892
 8767896789
@@ -33,8 +66,7 @@ string input1() {
 }
 
 string input() {
-    return R"(
-9987632123989012498765323467892101296546544569898545696545976534567987789212976789887578878998765432
+    return R"(9987632123989012498765323467892101296546544569898545696545976534567987789212976789887578878998765432
 9876541019878923569989413568943919985435433698767434989439899676779876678929875698765454969899893210
 9997632123969894697898954679659898976321012987654323678928678987989955568939984599854323456789989323
 9876543299858789986987895789798777895432123499543212569212567898998743456898765987543210167899878939

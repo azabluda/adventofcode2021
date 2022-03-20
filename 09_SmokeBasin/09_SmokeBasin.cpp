@@ -3,6 +3,7 @@
 #include <queue>
 #include <sstream>
 #include <unordered_set>
+#include <chrono>
 using namespace std;
 
 string input();
@@ -15,6 +16,7 @@ int main() {
         area.push_back('9' + line + '9');
     area[0] = string(area[1].size(), '9');
     area.push_back(area[0]);
+    auto start = chrono::steady_clock::now();
 
     // scan area for low points
     int res1 = 0, res2 = 1;
@@ -54,6 +56,9 @@ int main() {
         res2 *= -top3.top();
     cout << "Part 1: " << res1 << endl;
     cout << "Part 2: " << res2 << endl;
+
+    auto end = chrono::steady_clock::now();
+    cout << "Elapsed time (microsec): " << chrono::duration_cast<chrono::microseconds>(end - start).count() << endl;
 }
 
 string input1() {

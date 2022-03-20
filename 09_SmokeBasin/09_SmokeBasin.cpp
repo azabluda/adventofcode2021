@@ -21,7 +21,7 @@ int main() {
     // scan area for low points
     int res1 = 0, res2 = 1;
     static const vector<int> dir{ 1, 0, -1, 0, 1 };
-    priority_queue<int> top3;
+    priority_queue<int, vector<int>, greater<>> top3;
     for (size_t i = area.size() - 2; i; --i)
         for (size_t j = area[i].size() - 2; j; --j) {
 
@@ -32,28 +32,28 @@ int main() {
             if (!low) continue; // not a local min
 
             // run BFS from low point
-            unordered_set<size_t> basin;
+            int basin = 0;
             queue<pair<size_t, size_t>> q;
             q.push({i, j});
             while (q.size()) {
                 auto [r, c] = q.front();
                 q.pop();
                 if (area[r][c] == '9') continue;
-                if (!basin.insert(100*r + c).second) continue;
+                area[r][c] = '9';
+                ++basin;
                 for (size_t d = 0; d < 4; ++d)
-                    if (area[r + dir[d]][c + dir[d+1]] > area[r][c])
-                        q.push({r + dir[d], c + dir[d+1]});
+                    q.push({r + dir[d], c + dir[d+1]});
             }
 
             // maintain 3 largest basins
-            top3.push(-(int)basin.size());
+            top3.push(basin);
             if (top3.size() > 3) top3.pop();
             res1 += area[i][j] - '0' + 1;
         }
 
     // product of 3 largest basins
     for (; top3.size(); top3.pop())
-        res2 *= -top3.top();
+        res2 *= top3.top();
     cout << "Part 1: " << res1 << endl;
     cout << "Part 2: " << res2 << endl;
 

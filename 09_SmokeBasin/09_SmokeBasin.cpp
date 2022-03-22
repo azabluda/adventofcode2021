@@ -1,64 +1,41 @@
 #include <iostream>
-#include <numeric>
 #include <queue>
 #include <sstream>
-#include <unordered_set>
-#include <chrono>
 using namespace std;
 
 string input();
 
 int main() {
-    // surround area with '9's
     string line;
-    vector<string> area(1, "");
+    vector<string> area;
     for (stringstream file(input()); getline(file, line);)
-        area.push_back('9' + line + '9');
-    area[0] = string(area[1].size(), '9');
-    area.push_back(area[0]);
-    auto start = chrono::steady_clock::now();
+        area.push_back(line);
 
-    // scan area for low points
-    int res1 = 0, res2 = 1;
-    static const vector<int> dir{ 1, 0, -1, 0, 1 };
-    priority_queue<int, vector<int>, greater<>> top3;
-    for (size_t i = area.size() - 2; i; --i)
-        for (size_t j = area[i].size() - 2; j; --j) {
-
-            // check if (i,j) is low point
-            bool low = true;
-            for (size_t d = 0; low && d < 4; ++d)
-                low &= area[i][j] < area[i + dir[d]][j + dir[d+1]];
-            if (!low) continue; // not a local min
-
-            // run BFS from low point
+    priority_queue<int> top3;
+    size_t m = size(area), n = size(area[0]), res = 1;
+    for (int i = 0; i < m; ++i)
+        for (int j = 0; j < n; ++j) {
+            // iterative DFS
             int basin = 0;
-            queue<pair<size_t, size_t>> q;
-            q.push({i, j});
-            while (q.size()) {
-                auto [r, c] = q.front();
-                q.pop();
-                if (area[r][c] == '9') continue;
-                area[r][c] = '9';
+            vector<pair<int, int>> stack{ {i, j} };
+            while (size(stack)) {
+                auto [r, c] = stack.back();
+                stack.pop_back();
+                if (r < 0 || c < 0 || r == m || c == n) continue;
+                if (exchange(area[r][c], '9') == '9') continue;
                 ++basin;
-                for (size_t d = 0; d < 4; ++d)
-                    q.push({r + dir[d], c + dir[d+1]});
+                stack.insert(end(stack), { {r+1,c}, {r-1,c}, {r,c+1}, {r,c-1} });
             }
 
             // maintain 3 largest basins
-            top3.push(basin);
+            if (basin) top3.push(-basin);
             if (top3.size() > 3) top3.pop();
-            res1 += area[i][j] - '0' + 1;
         }
 
     // product of 3 largest basins
     for (; top3.size(); top3.pop())
-        res2 *= top3.top();
-    cout << "Part 1: " << res1 << endl;
-    cout << "Part 2: " << res2 << endl;
-
-    auto end = chrono::steady_clock::now();
-    cout << "Elapsed time (microsec): " << chrono::duration_cast<chrono::microseconds>(end - start).count() << endl;
+        res *= -top3.top();
+    cout << "Part 2: " << res << endl;
 }
 
 string input1() {

@@ -30,6 +30,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "09_SmokeBasin", "09_SmokeBa
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "10_SyntaxScoring", "10_SyntaxScoring\10_SyntaxScoring.vcxproj", "{DFE722CC-7BB9-4FFD-BFFA-64209132BCEC}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "11_DumboOctopus", "11_DumboOctopus\11_DumboOctopus.vcxproj", "{1BD85961-8219-4611-A3B0-742016B8FC37}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -172,6 +174,18 @@ Global
 		{DFE722CC-7BB9-4FFD-BFFA-64209132BCEC}.Release|x64.Build.0 = Release|x64
 		{DFE722CC-7BB9-4FFD-BFFA-64209132BCEC}.Release|x86.ActiveCfg = Release|Win32
 		{DFE722CC-7BB9-4FFD-BFFA-64209132BCEC}.Release|x86.Build.0 = Release|Win32
+		{1BD85961-8219-4611-A3B0-742016B8FC37}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{1BD85961-8219-4611-A3B0-742016B8FC37}.Debug|Any CPU.Build.0 = Debug|x64
+		{1BD85961-8219-4611-A3B0-742016B8FC37}.Debug|x64.ActiveCfg = Debug|x64
+		{1BD85961-8219-4611-A3B0-742016B8FC37}.Debug|x64.Build.0 = Debug|x64
+		{1BD85961-8219-4611-A3B0-742016B8FC37}.Debug|x86.ActiveCfg = Debug|Win32
+		{1BD85961-8219-4611-A3B0-742016B8FC37}.Debug|x86.Build.0 = Debug|Win32
+		{1BD85961-8219-4611-A3B0-742016B8FC37}.Release|Any CPU.ActiveCfg = Release|x64
+		{1BD85961-8219-4611-A3B0-742016B8FC37}.Release|Any CPU.Build.0 = Release|x64
+		{1BD85961-8219-4611-A3B0-742016B8FC37}.Release|x64.ActiveCfg = Release|x64
+		{1BD85961-8219-4611-A3B0-742016B8FC37}.Release|x64.Build.0 = Release|x64
+		{1BD85961-8219-4611-A3B0-742016B8FC37}.Release|x86.ActiveCfg = Release|Win32
+		{1BD85961-8219-4611-A3B0-742016B8FC37}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

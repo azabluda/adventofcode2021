@@ -3,7 +3,6 @@
 #include <ranges>
 #include <sstream>
 #include <unordered_map>
-#include <list>
 using namespace std;
 
 string input();
@@ -11,18 +10,29 @@ string input();
 int main() {
     string str;
     stringstream file(input());
+    unordered_map<char, long long> clr;
+    unordered_map<string, long long> pairs;
+    unordered_map<string, string> rules;
     getline(file, str);
-    list<char> poly(begin(str), end(str));
-    unordered_map<char, unordered_map<char, char>> pairs;
+    ++clr[str.front()];
+    ++clr[str.back()];
+    for (int i = 1; i < size(str); ++i)
+        ++pairs[str.substr(i - 1, 2)];
     for (getline(file, str); getline(file, str);)
-        pairs[str[0]][str[1]] = str[6];
-    for (int i = 0; i < 10; ++i)
-        for (auto p = begin(poly); next(p) != end(poly);)
-            poly.insert(p, pairs[*p][*++p]);
-    unordered_map<char, int> cnt;
-    for (char c : poly) ++cnt[c];
-    auto [m, M] = ranges::minmax(cnt | views::values);
-    cout << "Part 1:" << M - m << endl;
+        rules[str.substr(0, 2)] = str.substr(6, 1);
+    for (int i = 1; i <= 40; ++i) {
+        for (auto [p, c] : exchange(pairs, {})) {
+            auto ins = rules[p];
+            pairs[p[0] + ins] += c;
+            pairs[ins + p[1]] += c;
+        }
+        auto cnt = clr;
+        for (auto [p, c] : pairs)
+            for (char t : p)
+                cnt[t] += c;
+        auto [m, M] = ranges::minmax(cnt | views::values);
+        cout << i << ": " << (M - m) / 2 << endl;
+    }
 }
 
 string input1() {

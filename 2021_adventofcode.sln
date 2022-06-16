@@ -36,6 +36,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "12_PassagePathing", "12_Pas
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "13_TransparentOrigami", "13_TransparentOrigami\13_TransparentOrigami.vcxproj", "{277195B8-A098-4B86-A65F-52CD966B1BA0}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "14_ExtendedPolymerization", "14_ExtendedPolymerization\14_ExtendedPolymerization.vcxproj", "{CCE29286-12AA-43EB-B542-C84236B644E9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -214,6 +216,18 @@ Global
 		{277195B8-A098-4B86-A65F-52CD966B1BA0}.Release|x64.Build.0 = Release|x64
 		{277195B8-A098-4B86-A65F-52CD966B1BA0}.Release|x86.ActiveCfg = Release|Win32
 		{277195B8-A098-4B86-A65F-52CD966B1BA0}.Release|x86.Build.0 = Release|Win32
+		{CCE29286-12AA-43EB-B542-C84236B644E9}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{CCE29286-12AA-43EB-B542-C84236B644E9}.Debug|Any CPU.Build.0 = Debug|x64
+		{CCE29286-12AA-43EB-B542-C84236B644E9}.Debug|x64.ActiveCfg = Debug|x64
+		{CCE29286-12AA-43EB-B542-C84236B644E9}.Debug|x64.Build.0 = Debug|x64
+		{CCE29286-12AA-43EB-B542-C84236B644E9}.Debug|x86.ActiveCfg = Debug|Win32
+		{CCE29286-12AA-43EB-B542-C84236B644E9}.Debug|x86.Build.0 = Debug|Win32
+		{CCE29286-12AA-43EB-B542-C84236B644E9}.Release|Any CPU.ActiveCfg = Release|x64
+		{CCE29286-12AA-43EB-B542-C84236B644E9}.Release|Any CPU.Build.0 = Release|x64
+		{CCE29286-12AA-43EB-B542-C84236B644E9}.Release|x64.ActiveCfg = Release|x64
+		{CCE29286-12AA-43EB-B542-C84236B644E9}.Release|x64.Build.0 = Release|x64
+		{CCE29286-12AA-43EB-B542-C84236B644E9}.Release|x86.ActiveCfg = Release|Win32
+		{CCE29286-12AA-43EB-B542-C84236B644E9}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

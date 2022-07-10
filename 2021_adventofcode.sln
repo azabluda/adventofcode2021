@@ -40,6 +40,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "14_ExtendedPolymerization",
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "15_Chiton", "15_Chiton\15_Chiton.vcxproj", "{D145FBA1-3362-4C29-9632-7AB667731834}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "16_PacketDecoder", "16_PacketDecoder\16_PacketDecoder.csproj", "{7C20D4B4-B8FA-473A-8EDC-785E20E908A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -242,6 +244,18 @@ Global
 		{D145FBA1-3362-4C29-9632-7AB667731834}.Release|x64.Build.0 = Release|x64
 		{D145FBA1-3362-4C29-9632-7AB667731834}.Release|x86.ActiveCfg = Release|Win32
 		{D145FBA1-3362-4C29-9632-7AB667731834}.Release|x86.Build.0 = Release|Win32
+		{7C20D4B4-B8FA-473A-8EDC-785E20E908A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C20D4B4-B8FA-473A-8EDC-785E20E908A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C20D4B4-B8FA-473A-8EDC-785E20E908A3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7C20D4B4-B8FA-473A-8EDC-785E20E908A3}.Debug|x64.Build.0 = Debug|Any CPU
+		{7C20D4B4-B8FA-473A-8EDC-785E20E908A3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7C20D4B4-B8FA-473A-8EDC-785E20E908A3}.Debug|x86.Build.0 = Debug|Any CPU
+		{7C20D4B4-B8FA-473A-8EDC-785E20E908A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C20D4B4-B8FA-473A-8EDC-785E20E908A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C20D4B4-B8FA-473A-8EDC-785E20E908A3}.Release|x64.ActiveCfg = Release|Any CPU
+		{7C20D4B4-B8FA-473A-8EDC-785E20E908A3}.Release|x64.Build.0 = Release|Any CPU
+		{7C20D4B4-B8FA-473A-8EDC-785E20E908A3}.Release|x86.ActiveCfg = Release|Any CPU
+		{7C20D4B4-B8FA-473A-8EDC-785E20E908A3}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

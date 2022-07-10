@@ -28,21 +28,23 @@ int main() {
 
     // Dijkstra
     size_t R = size(cave), C = size(cave[0]);
-    vector<vector<int>> dst(R, vector<int>(C, INT_MAX));
+    vector<vector<int>> dst(R, vector<int>(C));
     typedef tuple<int, int, int> i3;
     priority_queue<i3, vector<i3>, greater<>> pq;
+    dst[0][0] = cave[0][0] - '0';
     pq.push({});
     while (size(pq)) {
-        auto [w, r, c] = pq.top();
+        auto [_, r, c] = pq.top();
         pq.pop();
-        if (r < 0 || c < 0 || r == R || c == C) continue;
-        if (r + c) w += cave[r][c] - '0';
-        if (w >= dst[r][c]) continue;
-        dst[r][c] = w;
-        for (int i = 0; i < 4; ++i)
-            pq.push({ w, r + dir[i], c + dir[i + 1] });
+        for (int i = 0; i < 4; ++i) {
+            int rr = r + dir[i], cc = c + dir[i + 1];
+            if (rr < 0 || cc < 0 || rr == R || cc == C) continue;
+            if (dst[rr][cc]) continue;
+            dst[rr][cc] = dst[r][c] + cave[rr][cc] - '0';
+            pq.push({ dst[rr][cc], rr, cc });
+        }
     }
-    cout << dst.back().back() << endl;
+    cout << dst.back().back() - dst[0][0] << endl;
 }
 
 string input1() {

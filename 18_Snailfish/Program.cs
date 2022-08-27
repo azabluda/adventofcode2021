@@ -3,111 +3,78 @@
 
 Test.Cases.ForEach(Snailfish);
 
-void Snailfish(string strs)
+void Snailfish(string input)
 {
-    Console.WriteLine(strs);
-    var split = strs.Split(Environment.NewLine);
-    var sum = split.Select(Parse).Aggregate(Sum);
-    Console.WriteLine($"Sum: {sum}");
-    Console.WriteLine($"Part 1: {sum.Magnitude}");
-    var max2 = (from s1 in split from s2 in split where !ReferenceEquals(s1, s2)
-                select Sum(Parse(s1), Parse(s2)).Magnitude).Max();
-    Console.WriteLine($"Part 2: {max2}");
+    var lines = input.Split(Environment.NewLine);
+    var part1 = Magnitude(lines.Aggregate(Sum));
+    var part2 = (from s in lines
+                 from t in lines
+                 where !ReferenceEquals(s, t)
+                 select Magnitude(Sum(s, t))).Max();
+    Console.WriteLine(input);
+    Console.WriteLine($"Part 1: {part1}");
+    Console.WriteLine($"Part 2: {part2}");
     Console.WriteLine();
 }
 
-Node Parse(string str)
+string Sum(string s, string t)
 {
-    int pos = 0;
-    return Parse(null);
-    Node Parse(Pair parent)
-    {
-        var ch = str[pos++]; // digit or '['
-        if (char.IsDigit(ch))
-            return new Regular { Parent = parent, Value = ch - '0' };
-        Pair node = new() { Parent = parent };
-        node.Left = Parse(node);
-        ++pos; // consume ','
-        node.Right = Parse(node);
-        ++pos; // consume ']'
-        return node;
-    }
+    const string map = "],[0123456789";
+    var res = $"[{s},{t}]".Select(ch => map.IndexOf(ch) - 3).ToList(); // string -> List<int>
+    while (Explode(res) || Split(res)); // reduce List<int>
+    return string.Concat(res.Select(n => map[n + 3])); // List<int> -> string
 }
 
-Node Sum(Node a, Node b)
+bool Explode(List<int> res)
 {
-    Pair sum = new() { Left = a, Right = b };
-    a.Parent = b.Parent = sum;
-    while (Explode(sum, 0) || Split(sum));
-    return sum;
-}
+    // find pair at depth >4
+    int i = -1;
+    for (int d = 0; d <= 4;)
+        if (++i == res.Count) return false;
+        else if (res[i] < 0) d += res[i] + 2;
+    
+    // left shard
+    int l = res.FindLastIndex(i, n => n >= 0);
+    if (l >= 0) res[l] += res[i + 1];
 
-bool Split(Node node)
-{
-    if (node is not Regular reg || reg.Value < 10)
-        return node is Pair pair && (Split(pair.Left) || Split(pair.Right));
-    Regular a = new() { Value = reg.Value / 2 };
-    Regular b = new() { Value = reg.Value - reg.Value / 2 };
-    Pair split = new() { Left = a, Right = b };
-    a.Parent = b.Parent = split;
-    return Replace(node, split);
-}
+    // right shard
+    int r = res.FindIndex(i + 5, n => n >= 0);
+    if (r >= 0) res[r] += res[i + 3];
 
-bool Explode(Node node, int depth)
-{
-    if (node is not Pair pair) return false;
-    if (depth < 4 || pair.Left is not Regular left || pair.Right is not Regular right)
-        return Explode(pair.Left, depth + 1) || Explode(pair.Right, depth + 1);
-    if (GetRegularSibling(node, n => n.Left, n => n.Right) is Regular regLeft)
-        regLeft.Value += left.Value;
-    if (GetRegularSibling(node, n => n.Right, n => n.Left) is Regular regRight)
-        regRight.Value += right.Value;
-    return Replace(node, new Regular() { Value = 0 });
-}
-
-Regular GetRegularSibling(Node n, Func<Pair, Node> f1, Func<Pair, Node> f2)
-{
-    Pair p = n.Parent;
-    for (; ; (n, p) = (p, p.Parent))
-        if (p is null) return null;
-        else if (n == f2(p)) break;
-    for (n = f1(p); ; n = f2((Pair)n))
-        if (n is Regular r) return r;
-}
-
-bool Replace(Node node, Node replace)
-{
-    Pair parent = replace.Parent = node.Parent;
-    if (node == parent.Left) parent.Left = replace;
-    else parent.Right = replace;
+    // replace pair with integer 0
+    res.RemoveRange(i, 5);
+    res.Insert(i, 0);
     return true;
 }
 
-abstract class Node
+bool Split(List<int> res)
 {
-    public Pair Parent;
-    public abstract int Magnitude { get; }
+    // find integer >9
+    int i = res.FindIndex(n => n > 9);
+    if (i < 0) return false;
+    int n = res[i];
+
+    // replace it with split pair
+    res.RemoveAt(i);
+    res.InsertRange(i, new[] { -1, n / 2, -2, ++n / 2, -3 });
+    return true;
 }
 
-class Pair : Node
+int Magnitude(string s)
 {
-    public Node Left;
-    public Node Right;
-    public override int Magnitude => 3 * Left.Magnitude + 2 * Right.Magnitude;
-    public override string ToString() => $"[{Left},{Right}]";
-}
-
-class Regular : Node
-{
-    public int Value;
-    public override int Magnitude => Value;
-    public override string ToString() => $"{Value}";
+    s = s.Replace(",", "").Replace("]", "");
+    int i = -1;
+    int Wtf() => s[++i] == '[' ? 3 * Wtf() + 2 * Wtf() : s[i] - '0';
+    return Wtf();
 }
 
 static class Test
 {
     public static List<string> Cases { get; } = new()
     {
+@"[[[[4,3],4],4],[7,[[8,4],9]]]
+[1,1]",
+
 @"[[[0,[4,5]],[0,0]],[[[4,5],[2,6]],[9,5]]]
 [7,[[[3,7],[4,3]],[[6,3],[8,8]]]]
 [[2,[[0,8],[3,4]]],[[[6,7],1],[7,[1,6]]]]
@@ -118,9 +85,6 @@ static class Test
 [1,[[[9,3],9],[[9,0],[0,7]]]]
 [[[5,[7,4]],7],1]
 [[[[4,2],2],6],[8,7]]",
-
-@"[[[[4,3],4],4],[7,[[8,4],9]]]
-[1,1]",
 
 @"[1,2]
 [3,4]",

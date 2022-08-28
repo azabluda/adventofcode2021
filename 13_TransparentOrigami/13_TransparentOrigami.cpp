@@ -30,7 +30,7 @@ int main() {
         X = max(x, X), Y = max(y, Y);
     vector<string> lines(Y + 1, string(X + 1, ' '));
     for (auto [x, y] : points)
-        lines[y][x] = 219;
+        lines[y][x] = '#';
     for (auto line : lines)
         cout << line << endl;
 }

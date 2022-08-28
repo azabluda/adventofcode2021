@@ -1,20 +1,28 @@
-﻿var blocks = input().Split("\r\n\r\n");
-var boards = blocks.Skip(1).Select(Block2Map).ToList();
-HashSet<Dictionary<int, int[]>> won = new();
-foreach (int num in blocks[0].Split(",").Select(int.Parse))
-    foreach (var board in boards)
-        if (!won.Contains(board) && board.Remove(num) && board.Values.SelectMany(x => x).Distinct().Count() < 10)
-        {
-            won.Add(board);
-            Console.WriteLine(board.Keys.Sum() * num);
-        }
+﻿Test.Cases.ForEach(input =>
+{
+    var blocks = input.Split("\r\n\r\n");
+    var boards = blocks.Skip(1).Select(Block2Map).ToList();
+    HashSet<Dictionary<int, int[]>> won = new();
+    foreach (int num in blocks[0].Split(",").Select(int.Parse))
+        foreach (var board in boards)
+            if (!won.Contains(board) && board.Remove(num) && board.Values.SelectMany(x => x).Distinct().Count() < 10)
+            {
+                won.Add(board);
+                Console.WriteLine(board.Keys.Sum() * num);
+            }
+    Console.WriteLine();
+});
 
 static Dictionary<int, int[]> Block2Map(string block) => block
     .Split(new[] { "\r\n", " " }, StringSplitOptions.RemoveEmptyEntries)
     .Select((s, i) => (int.Parse(s), new[] { i / 5, 5 + i % 5 }))
     .ToDictionary(x => x.Item1, x => x.Item2);
 
-static string input1() => @"7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1
+static class Test
+{
+    public static List<string> Cases { get; } = new()
+    {
+ @"7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1
 
 22 13 17 11  0
  8  2 23  4 24
@@ -32,9 +40,9 @@ static string input1() => @"7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22
 10 16 15  9 19
 18  8 23 26 20
 22 11 13  6  5
- 2  0 12  3  7";
+ 2  0 12  3  7",
 
-static string input() => @"13,79,74,35,76,12,43,71,87,72,23,91,31,67,58,61,96,16,81,92,41,6,32,86,77,42,0,55,68,14,53,26,25,11,45,94,75,1,93,83,52,7,4,22,34,64,69,88,65,66,39,97,27,29,78,5,49,82,54,46,51,28,98,36,48,15,2,50,38,24,89,59,8,3,18,47,10,90,21,80,73,33,85,62,19,37,57,95,60,20,99,17,63,56,84,44,40,70,9,30
+@"13,79,74,35,76,12,43,71,87,72,23,91,31,67,58,61,96,16,81,92,41,6,32,86,77,42,0,55,68,14,53,26,25,11,45,94,75,1,93,83,52,7,4,22,34,64,69,88,65,66,39,97,27,29,78,5,49,82,54,46,51,28,98,36,48,15,2,50,38,24,89,59,8,3,18,47,10,90,21,80,73,33,85,62,19,37,57,95,60,20,99,17,63,56,84,44,40,70,9,30
 
 14 86 50 89 49
 10 85 33 46 87
@@ -634,4 +642,6 @@ static string input() => @"13,79,74,35,76,12,43,71,87,72,23,91,31,67,58,61,96,16
 38 88 40  9 47
 29 59 94 74 12
 48 73 85 97 35
-28 25 30 14 83";
+28 25 30 14 83",
+    };
+}

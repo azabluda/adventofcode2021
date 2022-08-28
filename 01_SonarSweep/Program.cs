@@ -1,11 +1,19 @@
-﻿var input = input1().Split("\n").Select(int.Parse);
-Console.WriteLine($"Part 1: {Sweep(input)}");
-Console.WriteLine($"Part 2: {Sweep(input.Zip(input.Skip(1), input.Skip(2)).Select(x => x.First + x.Second + x.Third))}");
+﻿Test.Cases.ForEach(s =>
+{
+    var input = s.Split("\n").Select(int.Parse);
+    Console.WriteLine(string.Join(", ", input));
+    Console.WriteLine($"Part 1: {Sweep(input)}");
+    Console.WriteLine($"Part 2: {Sweep(input.Zip(input.Skip(1), input.Skip(2)).Select(x => x.First + x.Second + x.Third))}");
+    Console.WriteLine();
+});
 
-static int Sweep(IEnumerable<int> measurements) =>
+int Sweep(IEnumerable<int> measurements) =>
     measurements.Zip(measurements.Skip(1), (a, b) => a < b).Count(x => x);
 
-static string input0() =>
+static class Test
+{
+    public static List<string> Cases { get; } = new()
+    {
 @"199
 200
 208
@@ -15,9 +23,8 @@ static string input0() =>
 240
 269
 260
-263";
+263",
 
-static string input1() =>
 @"124
 125
 127
@@ -2017,4 +2024,6 @@ static string input1() =>
 8547
 8551
 8563
-8564";
+8564",
+    };
+}

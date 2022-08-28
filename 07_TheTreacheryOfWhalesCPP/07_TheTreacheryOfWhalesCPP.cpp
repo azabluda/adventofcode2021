@@ -44,7 +44,7 @@ int minTotalFuel3(function<int(int)> dist2fuel)
         | views::transform([&](int pos) { return accumulate(begin(input), end(input), 0, [&](int a, int b) { return a + dist2fuel(abs(pos - b)); }); }));
 }
 
-void main()
+int main()
 {
     auto minTotalFuel = minTotalFuel3;
     cout << "Part 1: " << minTotalFuel([](int dist) { return dist; }) << endl;

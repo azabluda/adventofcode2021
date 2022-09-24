@@ -46,6 +46,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "17_TrickShot", "17_TrickSho
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "18_Snailfish", "18_Snailfish\18_Snailfish.csproj", "{E406F4B4-150B-435E-9E74-98358071B85A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "19_BeaconScanner", "19_BeaconScanner\19_BeaconScanner.csproj", "{B879954A-0E75-4C90-8E8B-BAC365FF06F5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -284,6 +286,18 @@ Global
 		{E406F4B4-150B-435E-9E74-98358071B85A}.Release|x64.Build.0 = Release|Any CPU
 		{E406F4B4-150B-435E-9E74-98358071B85A}.Release|x86.ActiveCfg = Release|Any CPU
 		{E406F4B4-150B-435E-9E74-98358071B85A}.Release|x86.Build.0 = Release|Any CPU
+		{B879954A-0E75-4C90-8E8B-BAC365FF06F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B879954A-0E75-4C90-8E8B-BAC365FF06F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B879954A-0E75-4C90-8E8B-BAC365FF06F5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B879954A-0E75-4C90-8E8B-BAC365FF06F5}.Debug|x64.Build.0 = Debug|Any CPU
+		{B879954A-0E75-4C90-8E8B-BAC365FF06F5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B879954A-0E75-4C90-8E8B-BAC365FF06F5}.Debug|x86.Build.0 = Debug|Any CPU
+		{B879954A-0E75-4C90-8E8B-BAC365FF06F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B879954A-0E75-4C90-8E8B-BAC365FF06F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B879954A-0E75-4C90-8E8B-BAC365FF06F5}.Release|x64.ActiveCfg = Release|Any CPU
+		{B879954A-0E75-4C90-8E8B-BAC365FF06F5}.Release|x64.Build.0 = Release|Any CPU
+		{B879954A-0E75-4C90-8E8B-BAC365FF06F5}.Release|x86.ActiveCfg = Release|Any CPU
+		{B879954A-0E75-4C90-8E8B-BAC365FF06F5}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

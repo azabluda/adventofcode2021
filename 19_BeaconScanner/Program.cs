@@ -20,30 +20,27 @@ void BeaconScanner(string input)
         let beacons = from line in lines.Skip(1)
                       select line.Split(",").Select(int.Parse).ToArray()
         select new Scanner(new int[3], beacons.ToArray())),
-        bfs = new() { todo[0] }, res = new(), src, tgt;
+        bfs = new() { todo[0] }, res = new();
 
     // BFS by overlapping detection cubes of scanners
     for (todo.RemoveAt(0); bfs.Any();)
     {
-        Console.WriteLine($"bfs {bfs.Count}, todo {todo.Count}, res {res.Count}");
+        Console.WriteLine($"[{DateTime.Now}] bfs {bfs.Count}, todo {todo.Count}, res {res.Count}");
         res.AddRange(bfs);
-        (src, tgt, bfs, todo) = (bfs, todo, new(), new());
-        foreach (Scanner t in tgt)
-        {
-            Scanner? tAligned = Enumerable.FirstOrDefault(
-                from R in Rotations
-                let tRotated = t.Beacons.Select(v => Rotate(R, v)).ToArray()
-                from s in src
-                from v in s.Beacons
-                from w in tRotated
-                let offset = Plus(v, Prod(w, -1))
-                let tt = new Scanner(offset, tRotated.Select(w => Plus(offset, w)).ToArray())
-                where Tuplify(s.Beacons).Intersect(Tuplify(tt.Beacons)).Count() >= 12
-                select tt);
-
+        var align = todo.AsParallel().Select(t =>
+            (t, (from R in Rotations
+                 let tRotated = t.Beacons.Select(v => Rotate(R, v)).ToArray()
+                 from s in bfs
+                 from v in s.Beacons
+                 from w in tRotated
+                 let offset = Plus(v, Prod(w, -1))
+                 let tt = new Scanner(offset, tRotated.Select(w => Plus(offset, w)).ToArray())
+                 where Tuplify(s.Beacons).Intersect(Tuplify(tt.Beacons)).Count() >= 12
+                 select tt).FirstOrDefault())).ToList();
+        (bfs, todo) = (new(), new());
+        foreach (var (t, tAligned) in align)
             if (tAligned is null) todo.Add(t); // can't align sensor 't' yet? retry later
             else bfs.Add(tAligned); // use 'tAligned' to align the remaining sensors
-        }
     }
 
     // Compute results

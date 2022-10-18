@@ -50,6 +50,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "19_BeaconScanner", "19_Beac
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "19_BeaconScanner_PY", "19_BeaconScanner_PY\19_BeaconScanner_PY.pyproj", "{04121C01-6F4F-4BCD-BFFD-D8AF5055B0C4}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "20_TrenchMap", "20_TrenchMap\20_TrenchMap.pyproj", "{A9AB0CE0-707B-44D8-BC9E-90C5A13123C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -306,6 +308,12 @@ Global
 		{04121C01-6F4F-4BCD-BFFD-D8AF5055B0C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04121C01-6F4F-4BCD-BFFD-D8AF5055B0C4}.Release|x64.ActiveCfg = Release|Any CPU
 		{04121C01-6F4F-4BCD-BFFD-D8AF5055B0C4}.Release|x86.ActiveCfg = Release|Any CPU
+		{A9AB0CE0-707B-44D8-BC9E-90C5A13123C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9AB0CE0-707B-44D8-BC9E-90C5A13123C7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A9AB0CE0-707B-44D8-BC9E-90C5A13123C7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A9AB0CE0-707B-44D8-BC9E-90C5A13123C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9AB0CE0-707B-44D8-BC9E-90C5A13123C7}.Release|x64.ActiveCfg = Release|Any CPU
+		{A9AB0CE0-707B-44D8-BC9E-90C5A13123C7}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

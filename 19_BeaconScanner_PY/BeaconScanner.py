@@ -3,6 +3,7 @@
 
 def BeaconScanner(data: str) -> None:
 
+    from collections import Counter
     from datetime import datetime
     from itertools import permutations, product
     from numpy import array, identity
@@ -26,10 +27,9 @@ def BeaconScanner(data: str) -> None:
     def TryAlign(t: Scanner, src: list[Scanner]) -> Scanner:
         tRotations = ([M.dot(v) for v in t.Beacons] for M in FRRR)
         for s, tBeacons in product(src, tRotations):
-            for u, v in product(s.Beacons, tBeacons):
-                t = Scanner({tuple(w + u - v) for w in tBeacons}, u - v)
-                if len(s.Beacons & t.Beacons) >= 12:
-                    return t
+            cnt = Counter(tuple(u - v) for u, v in product(s.Beacons, tBeacons))
+            if off := next((k for k, v in cnt.items() if v >= 12), None):
+                return Scanner({tuple(w + off) for w in tBeacons}, off)
 
     # BFS by overlapping detection cubes of scanners
     bfs, todo, res = todo[:1], todo[1:], []

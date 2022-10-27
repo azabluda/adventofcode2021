@@ -3,6 +3,12 @@
 
 Test.Cases.ForEach(BeaconScanner);
 
+int[]? FindOverlap(int[][] a, int[][] b) =>
+    Tuplify(a.Cartesian(b, (u, v) => Plus(u, Prod(v, -1))))
+        .GroupBy(x => x).Where(g => g.Count() >= 12)
+        .Select(g => new[] { g.Key.Item1, g.Key.Item2, g.Key.Item3 })
+        .FirstOrDefault();
+
 void BeaconScanner(string input)
 {
     // Pre-populate 48 rotation matrices (6 faces * 8 reflections)
@@ -31,11 +37,9 @@ void BeaconScanner(string input)
             (t, (from R in Rotations
                  let tRotated = t.Beacons.Select(v => Rotate(R, v)).ToArray()
                  from s in bfs
-                 from v in s.Beacons
-                 from w in tRotated
-                 let offset = Plus(v, Prod(w, -1))
+                 let offset = FindOverlap(s.Beacons, tRotated)
+                 where offset != null
                  let tt = new Scanner(offset, tRotated.Select(w => Plus(offset, w)).ToArray())
-                 where Tuplify(s.Beacons).Intersect(Tuplify(tt.Beacons)).Count() >= 12
                  select tt).FirstOrDefault())).ToList();
         (bfs, todo) = (new(), new());
         foreach (var (t, tAligned) in align)

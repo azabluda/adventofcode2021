@@ -52,6 +52,8 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "19_BeaconScanner_PY", "19_B
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "20_TrenchMap", "20_TrenchMap\20_TrenchMap.pyproj", "{A9AB0CE0-707B-44D8-BC9E-90C5A13123C7}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "21_DiracDice", "21_DiracDice\21_DiracDice.pyproj", "{DE367786-999C-4279-9D41-514D4EAEB4A2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -314,6 +316,12 @@ Global
 		{A9AB0CE0-707B-44D8-BC9E-90C5A13123C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9AB0CE0-707B-44D8-BC9E-90C5A13123C7}.Release|x64.ActiveCfg = Release|Any CPU
 		{A9AB0CE0-707B-44D8-BC9E-90C5A13123C7}.Release|x86.ActiveCfg = Release|Any CPU
+		{DE367786-999C-4279-9D41-514D4EAEB4A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE367786-999C-4279-9D41-514D4EAEB4A2}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DE367786-999C-4279-9D41-514D4EAEB4A2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DE367786-999C-4279-9D41-514D4EAEB4A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE367786-999C-4279-9D41-514D4EAEB4A2}.Release|x64.ActiveCfg = Release|Any CPU
+		{DE367786-999C-4279-9D41-514D4EAEB4A2}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

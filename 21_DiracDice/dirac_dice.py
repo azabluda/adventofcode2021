@@ -2,7 +2,7 @@
 # Day 21: Dirac Dice
 
 from numpy import array, int64
-from functools import lru_cache
+from functools import cache
 from itertools import cycle
 
 def dirac_dice(p1, p2):
@@ -22,7 +22,7 @@ def advance(player, p1, p2, die):
     def adv(p): return 1 + (p + die - 1) % 10
     return [p1, adv(p2)] if player else [adv(p1), p2]
 
-@lru_cache(None)
+@cache
 def dp(player, p1, p2, s1, s2):
     res = array([s1 > 20, s2 > 20], int64)
     if not any(res):

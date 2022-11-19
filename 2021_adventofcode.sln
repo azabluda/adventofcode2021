@@ -56,6 +56,8 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "21_DiracDice", "21_DiracDic
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "22_ReactorReboot", "22_ReactorReboot\22_ReactorReboot.pyproj", "{4853ACE7-3083-4FA5-8EB8-488D32B8149B}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "23_Amphipod", "23_Amphipod\23_Amphipod.pyproj", "{A33BEF31-7A21-40CD-A3D0-D1CE93606FEB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -330,6 +332,12 @@ Global
 		{4853ACE7-3083-4FA5-8EB8-488D32B8149B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4853ACE7-3083-4FA5-8EB8-488D32B8149B}.Release|x64.ActiveCfg = Release|Any CPU
 		{4853ACE7-3083-4FA5-8EB8-488D32B8149B}.Release|x86.ActiveCfg = Release|Any CPU
+		{A33BEF31-7A21-40CD-A3D0-D1CE93606FEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A33BEF31-7A21-40CD-A3D0-D1CE93606FEB}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A33BEF31-7A21-40CD-A3D0-D1CE93606FEB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A33BEF31-7A21-40CD-A3D0-D1CE93606FEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A33BEF31-7A21-40CD-A3D0-D1CE93606FEB}.Release|x64.ActiveCfg = Release|Any CPU
+		{A33BEF31-7A21-40CD-A3D0-D1CE93606FEB}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

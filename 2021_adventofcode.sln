@@ -60,6 +60,8 @@ Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "23_Amphipod", "23_Amphipod\
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "24_ArithmeticLogicUnit", "24_ArithmeticLogicUnit\24_ArithmeticLogicUnit.pyproj", "{BEA247B1-8AB0-439A-A2A9-7F49ED1DAA1D}"
 EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "25_SeaCucumber", "25_SeaCucumber\25_SeaCucumber.pyproj", "{52DF3991-45C8-47E5-A470-0F800262115D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -346,6 +348,12 @@ Global
 		{BEA247B1-8AB0-439A-A2A9-7F49ED1DAA1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BEA247B1-8AB0-439A-A2A9-7F49ED1DAA1D}.Release|x64.ActiveCfg = Release|Any CPU
 		{BEA247B1-8AB0-439A-A2A9-7F49ED1DAA1D}.Release|x86.ActiveCfg = Release|Any CPU
+		{52DF3991-45C8-47E5-A470-0F800262115D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52DF3991-45C8-47E5-A470-0F800262115D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{52DF3991-45C8-47E5-A470-0F800262115D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{52DF3991-45C8-47E5-A470-0F800262115D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52DF3991-45C8-47E5-A470-0F800262115D}.Release|x64.ActiveCfg = Release|Any CPU
+		{52DF3991-45C8-47E5-A470-0F800262115D}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

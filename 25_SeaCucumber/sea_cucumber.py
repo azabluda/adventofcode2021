@@ -3,28 +3,24 @@
 
 from itertools import *
 
-def sea_cucumber(data):
-    data = data.split()
-    dims = [len(data), len(data[0])]
-    area = {(0,1):set(), (1,0):set()}
-    for i, line in enumerate(data):
-        for j, ch in enumerate(line):
-            mov = (ch == 'v', ch == '>')
-            if any(mov): area[mov].add((i,j))
-    for i in count(1):
+def sea_cucumber(txt):
+    grid = [*map(list, txt.split())]
+    dims = [len(grid), len(grid[0])]
+    for cnt in count(1):
         moved = False
-        for mov in area:
-            nxt = set()
-            for crd in area[mov]:
-                new = tuple((a+b)%c for a,b,c in zip(crd,mov,dims))
-                blocked = any(new in crds for crds in area.values())
-                nxt.add(crd if blocked else new)
-                moved |= not blocked
-            area[mov] = nxt
-        if not moved: break
-    print(i)
+        for cuc in '>v':
+            mov = [cuc == 'v', cuc == '>']
+            nxt = [row[:] for row in grid]
+            for r, c in product(*map(range, dims)):
+                R, C = [(i+j)%k for i,j,k in zip([r,c], mov, dims)]
+                if grid[r][c] == cuc and grid[R][C] == '.':
+                    nxt[r][c] = '.'
+                    nxt[R][C] = cuc
+                    moved = True
+            grid = nxt
+        if not moved: return cnt
 
-_ = [*map(sea_cucumber,
+_ = [*map(print, map(sea_cucumber,
 [   
 """v...>>.vv>
 .vv>>.vv..
@@ -174,4 +170,4 @@ v.v.v>...>.....v.v...v.v..>.v>.vv>v.........>..v>.v..vv>..>.v>v.v>..v.>...>..>v>
 v>......v.>..v.>...v..>v......v..v.>..>..>v...>..v....vvv...>.vv....>.>>.>....>v.>>>>>.v.vv..>>>>>>..>v..>.v....v.>v.vvv>>>...v....v..vv..>
 >.vv.....v>v.v.v>v>.v>>v..>.v..v..>..>.....>.v.v.>>>..v..v>...v...>...>....vv.>v..vv....v.v>>v>vv..v..v.v>v.>v>vv>.........>.vvv..v.v>>..>.""",
 
-])]
+]))]
